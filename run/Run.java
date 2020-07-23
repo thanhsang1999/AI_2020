@@ -27,7 +27,7 @@ public class Run extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		// sang nguyen
-		//nguyen huy thanh sang	
+		//Test 123
 		request.getRequestDispatcher("web/index.jsp").forward(request, response);
 	}
 
