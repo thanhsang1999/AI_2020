@@ -26,6 +26,7 @@ public class Run extends HttpServlet {
 	private void todo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		// Nguyen Huy Thanh Sang
 		request.getRequestDispatcher("web/index.jsp").forward(request, response);
 	}
 
