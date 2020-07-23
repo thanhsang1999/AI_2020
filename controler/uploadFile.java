@@ -49,42 +49,28 @@ public class uploadFile extends HttpServlet {
 
 	private void todo(HttpServletRequest request, HttpServletResponse response){
 		try {
-			String appPath = request.getServletContext().getRealPath("");
-			appPath = appPath.replace('\\', '/');
-			
-			Part part = request.getPart("filename");
-			if (part!=null) {
-				part.write(appPath+"/test");
-			}
-			File tmpFile = new File(appPath+"/test");
-			System.out.println(tmpFile.getAbsolutePath());
-			System.out.println(tmpFile.exists());
+			String output;
+			File fileInput = GetFileInput(request,response);
+			System.out.println(fileInput.getTotalSpace());
+			response.getOutputStream().print("OK123");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	private File GetFileInput(HttpServletRequest request, HttpServletResponse response) {
+		try {
+		String appPath = request.getServletContext().getRealPath("");
+		appPath = appPath.replace('\\', '/');
 		
-//		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-//		if (isMultipart) {
-//			FileItemFactory factory = new DiskFileItemFactory();
-//			ServletFileUpload upload = new ServletFileUpload(factory);
-//			String UPLOAD_DIRECTORY = getServletContext().getRealPath(File.separator + "Upload" + File.separator);
-//			if (!new File(UPLOAD_DIRECTORY).exists()) {
-//				new File(UPLOAD_DIRECTORY).mkdir();
-//			}
-//			try {
-//				List<FileItem> multiparts = upload.parseRequest((RequestContext) request);
-//				for (FileItem item : multiparts) {
-//					if (!item.isFormField()) {
-//						String name = new File(item.getName()).getName();
-//						item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
-//						System.out.println("Folder file upload on server : " + UPLOAD_DIRECTORY);
-//						System.out.println("File upload success");
-//					}
-//				}
-//			} catch (Exception e) {
-//				System.out.println("Exception : " + e.toString());
-//				System.out.println("File upload failed");
-//			}
-//		}
+		Part part = request.getPart("fileInput");
+		if (part!=null) {
+			part.write(appPath+"/fileInput");
+		}
+		File tmpFile = new File(appPath+"/fileInput");
+		return tmpFile;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
