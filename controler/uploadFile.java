@@ -40,22 +40,12 @@ public class uploadFile extends HttpServlet {
 
 	private void todo(HttpServletRequest request, HttpServletResponse response) {
 		try {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
 		File fileInput = GetFileInput(request, response);
 		NhanDienChoMeo nChoMeo = new NhanDienChoMeo();
-		nChoMeo.setPathFile(request.getServletContext().getRealPath("")+"WEB-INF/resources/model.zip");
-		PetType petType = nChoMeo.detectCat(fileInput);
-		String output;
-		if (PetType.CAT==petType) {
-			output = "Đây là Mèo";
-		}else if (PetType.DOG==petType) {
-			output = "Đây là Chó";
-		}else {
-			output = "Không Xác Định";			
-		}
-		response.getWriter().write(output);
+			PetType petType = nChoMeo.detectCat(fileInput);
+			response.getWriter().write(petType.toString());
 		} catch (IOException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

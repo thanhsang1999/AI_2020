@@ -13,11 +13,17 @@ import org.nd4j.linalg.dataset.api.preprocessor.VGG16ImagePreProcessor;
 import org.slf4j.Logger;
 
 public class NhanDienChoMeo {
-	public String PATH_MODEL;
+	public final Logger log;
+	public final String TRAINED_PATH_MODEL;
 	public static ComputationGraph computationGraph;
 	public NhanDienChoMeo() {
+		this.log = org.slf4j.LoggerFactory.getLogger(TrainImageNetVG16.class);
+		TRAINED_PATH_MODEL = TrainImageNetVG16.DATA_PATH + "/model.zip";
 	}
-
+	
+	public String Sang() {
+		return "Nguyen Huy Thanh Sang";
+	}
 	public PetType detectCat(File file) throws IOException {
 		double threshold = 0.50;
 		// kiểm tra xem mạng neural đã nạp dữ liệu chưa, nếu chưa thì nạp dữ liệu.
@@ -27,7 +33,7 @@ public class NhanDienChoMeo {
 		// khởi tạo mạng neural. Không tạo bản sao.
 		computationGraph.init();
 //        System.out.println(computationGraph.summary());
-//		log.info(computationGraph.summary());
+		log.info(computationGraph.summary());
 		// Khởi tạo matrix để lưu dữ liệu hình ảnh input
 		NativeImageLoader loader = new NativeImageLoader(224, 224, 3);
 		// Chuyển hình ảnh thành matrix
@@ -45,14 +51,10 @@ public class NhanDienChoMeo {
 			return PetType.NO_KNOWN;
 		}
 	}
-	public void setPathFile(String pathFile) {
-		this.PATH_MODEL=pathFile;
-	}
+
 	public ComputationGraph loadModel() {
 		try {
-			if (PATH_MODEL!=null) {
-				computationGraph = ModelSerializer.restoreComputationGraph(new File(PATH_MODEL));				
-			}
+			computationGraph = ModelSerializer.restoreComputationGraph(new File("C:\\Project_2020\\Java\\AI_Project\\Project_AI_Web\\WebContent\\WEB-INF\\resources\\model.zip"));
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
